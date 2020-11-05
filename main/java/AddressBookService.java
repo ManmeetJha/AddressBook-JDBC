@@ -10,12 +10,6 @@ public class AddressBookService {
     }
 
     private static List<Address> contactList;
-    
-
-    public AddressBookService(List<Address> employeePayrollList) {
-        //this();
-        this.contactList = employeePayrollList;
-    }
 
     public static List<Address> readContactData(IOService ioService) throws IOException {
         AddressBookJDBCServices addressBookJDBCServices =new AddressBookJDBCServices();
