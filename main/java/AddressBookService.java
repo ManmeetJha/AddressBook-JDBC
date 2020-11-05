@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -10,12 +11,6 @@ public class AddressBookService {
     }
 
     private static List<Address> contactList;
-    
-
-    public AddressBookService(List<Address> employeePayrollList) {
-        //this();
-        this.contactList = employeePayrollList;
-    }
 
     public static List<Address> readContactData(IOService ioService) throws IOException {
         AddressBookJDBCServices addressBookJDBCServices =new AddressBookJDBCServices();
@@ -48,5 +43,9 @@ public class AddressBookService {
     public static boolean isAddressBookSyncedWithDB(String firstName) throws IOException {
         Address contact = getContactData(firstName);
         return AddressBookJDBCServices.getContacts(firstName).get(0).getCity().equals(contact.getCity());
+    }
+
+    public static List<Address> getContactsForDateRange(LocalDate startDate, LocalDate endDate){
+        return AddressBookJDBCServices.getContactsForDateRange(startDate, endDate);
     }
 }

@@ -3,10 +3,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBookJDBCServices{
+
+    public static List<Address> getContactsForDateRange(LocalDate startDate, LocalDate endDate) {
+        String sql = String.format("select * from addressbook where Date >= '%s' AND Date <= '%s'", startDate,endDate);
+        return getContactList(sql);
+    }
 
     public List<Address> readData() {
         String sql = String.format("select * from addressbook");
