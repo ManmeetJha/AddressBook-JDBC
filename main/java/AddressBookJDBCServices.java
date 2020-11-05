@@ -19,6 +19,17 @@ public class AddressBookJDBCServices{
         return getContactList(sql);
     }
 
+    public static void insertIntoDB(String firstName, String lastName, String address, String city, String state, String zip, String phone_no, String email, String date) {
+        String sql = String.format("insert into addressbook (firstName, lastName, Address, City, State, Zip, Phone_No, Email, Date) values ('%s','%s','%s','%s','%s',%s,%s,'%s','%s')",
+                firstName,lastName,address,city,state,zip,phone_no,email,date);
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Address> readData() {
         String sql = String.format("select * from addressbook");
         return getContactList(sql);

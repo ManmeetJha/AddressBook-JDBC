@@ -47,5 +47,13 @@ public class AddressBookJDBCServiceTest {
         assertEquals(1,contactList.size());
     }
 
+    @Test
+    public void givenContactData_WhenAddedToDB_ShouldSyncWithDB() throws AddressBookDBException, IOException {
+        AddressBookService.addNewContact("2018-08-06", "" +
+                        "+", "Kumar", "Agra", "Ghaziabad",
+                "Uttar Pradesh", "220502", "870045", "amit.kumar@gmail.com");
+        boolean isSynced = AddressBookService.isAddressBookSyncedWithDB("Amit");
+        Assert.assertEquals(true, isSynced);
+    }
 
 }

@@ -54,4 +54,9 @@ public class AddressBookService {
     public static List<Address> getContactsByCity(String city) {
         return AddressBookJDBCServices.getContactsByCity(city);
     }
+
+    public static void addNewContact(String Date, String firstName, String lastName,
+                                     String Address, String City, String State, String Zip, String Phone_No, String Email) {
+        AddressBookJDBCServices.insertIntoDB(firstName,lastName,Address,City,State,Zip,Phone_No,Email,Date);
+    }
 }
