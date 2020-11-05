@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
@@ -30,4 +31,15 @@ public class AddressBookJDBCServiceTest {
        //assertTrue(isSynced);
         Assert.assertEquals(true, isSynced);
     }
+
+    @Test
+    public void givenDateRange_WhenRetrievedContactInfo_ShouldMatchCount() throws AddressBookDBException{
+        LocalDate startDate = LocalDate.of(2017, 03, 01);
+        LocalDate endDate= LocalDate.now();
+        List<Address> contactList= AddressBookService.getContactsForDateRange(startDate,endDate);
+        System.out.println("contactList: "+ contactList.toString());
+        Assert.assertEquals(4,contactList.size());
+    }
+
+
 }
