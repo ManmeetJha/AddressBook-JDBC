@@ -3,6 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -55,5 +56,21 @@ public class AddressBookJDBCServiceTest {
         boolean isSynced = AddressBookService.isAddressBookSyncedWithDB("Amit");
         Assert.assertEquals(true, isSynced);
     }
+
+
+    @Test
+    public void givenMultipeContacts_WhenAddedToDBWithMultiThreads_ShouldSyncWithDB() throws AddressBookDBException, IOException {
+        List<Address> contacts = new ArrayList<Address>() {
+            {
+                add(new Address("Doland", "Trump", "Prembaripul", "New Delhi", "Delhi", "110077",
+                        "1099", "doland.trump@gmail.com"));
+                add(new Address("Virat", "Kuhli", "Mirzapur", "Bengaluru", "Karnataka", "560091", "8800",
+                        "virat.kuhli@eesaalcupnamde.com"));
+            }
+        };
+        AddressBookService.addNewMultipleContacts(contacts);
+        //assertEquals(7, AddressBookService.readContactData(AddressBookService.IOService.DB_IO).size());
+    }
+
 
 }

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -58,5 +59,31 @@ public class AddressBookService {
     public static void addNewContact(String Date, String firstName, String lastName,
                                      String Address, String City, String State, String Zip, String Phone_No, String Email) {
         AddressBookJDBCServices.insertIntoDB(firstName,lastName,Address,City,State,Zip,Phone_No,Email,Date);
+    }
+
+    public static void addNewMultipleContacts(List<Address> addresses) {
+        HashMap<String,Boolean> statusMap = new HashMap<String, Boolean>();
+
+        for(Address address : addresses){
+            statusMap.put(address.getFirst_name(), false);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AddressBookJDBCServices.insertIntoDB(address.getFirst_name(), address.getLast_name(),
+                            address.getAddress(), address.getCity(), address.getState(), address.getZip(), address.getPhone_no(),
+                            address.getEmail(), LocalDate.now().toString());
+                    statusMap.put(address.getFirst_name(), true);
+                }
+            }, address.getFirst_name());
+            thread.start();
+            while(!statusMap.get(address.getFirst_name())){
+                try {
+                    System.out.println("Currently running thread is : "+thread.getName());
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
