@@ -1,13 +1,22 @@
+import com.opencsv.bean.CsvBindByName;
 
 public class Address {
 
+    @CsvBindByName(column = "First_Name")
     private String First_name;
+    @CsvBindByName(column = "Last_Name")
     private String Last_name;
+    @CsvBindByName(column = "Address")
     private String Address;
+    @CsvBindByName(column = "City")
     private String City;
+    @CsvBindByName(column = "State")
     private String State;
+    @CsvBindByName(column = "Zip")
     private String Zip;
+    @CsvBindByName(column = "Phone_no")
     private String Phone_no;
+    @CsvBindByName(column = "Email")
     private String Email;
 
     public Address(String first_name, String last_name, String address, String city, String state, String zip,
@@ -92,5 +101,9 @@ public class Address {
                 + City + ", State=" + State + ", Zip=" + Zip + ", Phone_no=" + Phone_no + ", Email=" + Email + "]";
     }
 
+
+    public Object getFirst_Name() {
+        return First_name;
+    }
 
 }
