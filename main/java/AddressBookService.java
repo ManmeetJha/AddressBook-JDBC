@@ -6,6 +6,8 @@ import java.util.List;
 public class AddressBookService {
 
 
+
+
     public enum IOService {
         CONSOLE_IO, FILE_IO, DB_IO, REST_IO, CSV, JSON
     }
@@ -47,5 +49,9 @@ public class AddressBookService {
 
     public static List<Address> getContactsForDateRange(LocalDate startDate, LocalDate endDate){
         return AddressBookJDBCServices.getContactsForDateRange(startDate, endDate);
+    }
+
+    public static List<Address> getContactsByCity(String city) {
+        return AddressBookJDBCServices.getContactsByCity(city);
     }
 }

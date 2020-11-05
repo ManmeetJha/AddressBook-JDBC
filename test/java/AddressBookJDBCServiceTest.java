@@ -41,5 +41,11 @@ public class AddressBookJDBCServiceTest {
         Assert.assertEquals(4,contactList.size());
     }
 
+    @Test
+    public void givenAddressBookData_whenRetreivedByState_ShouldMatchContactCount() {
+        List<Address>contactList=AddressBookService.getContactsByCity("Samastipur");
+        assertEquals(1,contactList.size());
+    }
+
 
 }

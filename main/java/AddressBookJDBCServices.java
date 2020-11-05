@@ -14,6 +14,11 @@ public class AddressBookJDBCServices{
         return getContactList(sql);
     }
 
+    public static List<Address> getContactsByCity(String city) {
+        String sql = String.format("select * from addressbook where City = '%s'",city);
+        return getContactList(sql);
+    }
+
     public List<Address> readData() {
         String sql = String.format("select * from addressbook");
         return getContactList(sql);
