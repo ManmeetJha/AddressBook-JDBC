@@ -9,11 +9,11 @@ import java.util.List;
 public class AddressBookJDBCServices{
 
     public List<Address> readData() {
-        String sql = String.format("select * from addressBook");
+        String sql = String.format("select * from addressbook");
         return getContactList(sql);
     }
 
-    private List<Address> getContactList(String sql) {
+    private static List<Address> getContactList(String sql) {
         List<Address> contactList = new ArrayList<>();
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -29,10 +29,28 @@ public class AddressBookJDBCServices{
         return contactList;
     }
 
-    private Connection getConnection() throws SQLException {
-        String jdbcURL = "jdbc:mysql://localhost:3306/addressBook?useSSL=false";
+    private static Connection getConnection() throws SQLException {
+        String jdbcURL = "jdbc:mysql://localhost:3306/addressbook?useSSL=false";
         String userName = "root";
         String password = "Monu@12783";
         return DriverManager.getConnection(jdbcURL, userName, password);
+    }
+
+    public static List<Address> getContacts(String firstName) {
+        String sql = String.format("select * from addressbook where firstName = '%s'", firstName);
+        return getContactList(sql);
+    }
+
+    public int updateContactUsingSQL(String firstName, String column, String columnValue) {
+        String sql = String.format("UPDATE addressbook SET %s = '%s' WHERE firstName = '%s';", column, columnValue,
+                firstName);
+        System.out.println("sql: "+sql);
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
